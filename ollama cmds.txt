@@ -1,0 +1,29 @@
+// Commands for running Ollama application in terminal. 
+
+ollama pull llama3
+
+$body = @{
+    model = "llama3"
+    prompt = "Hey"
+}
+
+
+Invoke-WebRequest -Uri http://localhost:11434/api/generate -Method Post -Body (ConvertTo-Json $body) -ContentType 'application/json'
+
+
+$response = Invoke-WebRequest -Uri http://localhost:11434/api/generate -Method Post -Body (ConvertTo-Json $body) -ContentType 'application/json'
+
+echo $response
+$response.Content
+
+$responseContent = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.Content))
+
+pip install streamlit ollama openai
+
+Streamlit - Its helps us in creating basic UI web applications for running our applications.
+
+
+- To run the code in VS code for the chatbot, write this in terminal once the code is complete and have run it once - streamlit run file_name
+
+
+github - https://github.com/Abhinav1525/Chatbot-using-Ollama-LLM
