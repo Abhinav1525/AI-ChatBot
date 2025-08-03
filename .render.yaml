@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: talk-ai-chatbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run ChatBot.py --server.port $PORT
+    plan: free
