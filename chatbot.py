@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 from serpapi.google_search import GoogleSearch
 import os
 
@@ -16,10 +16,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # ----------- OpenAI Client for Ollama -------------
-client = OpenAI(
-    base_url="http://localhost:11434/v1",
-    api_key=os.getenv("OPENAI_API_KEY")  # Ollama doesn't check this, required by the SDK
-)
+openai.api_key = os.getenv("OPENAI_API_KEY")     # Ollama doesn't check this, required by the SDK
 
 # ----------- SerpAPI Web Search Function -------------
 
@@ -63,8 +60,8 @@ if prompt:
         response = ""
         response_placeholder = st.empty()
 
-        stream = client.chat.completions.create(
-            model="mistral", 
+        stream = openai.chat.completions.create(
+            model="gpt-3.5-turbo", 
             messages=full_messages,
             stream=True
         )
@@ -76,4 +73,3 @@ if prompt:
 
     # Save assistant response
     st.session_state.messages.append({"role": "assistant", "content": response})
-
