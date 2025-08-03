@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 from serpapi.google_search import GoogleSearch
+import os
 
 # ----------- Streamlit Title -------------
 st.title("Talk AI! 🤖🗣️")
@@ -21,7 +22,6 @@ client = OpenAI(
 )
 
 # ----------- SerpAPI Web Search Function -------------
-import os
 
 def search_web(query):
     params = {
@@ -76,3 +76,4 @@ if prompt:
 
     # Save assistant response
     st.session_state.messages.append({"role": "assistant", "content": response})
+
